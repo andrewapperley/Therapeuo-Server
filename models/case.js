@@ -18,25 +18,18 @@ module.exports = function() {
             upsert: true,
             "new": true
         }));
-        promises.push(DoctorModel.findOneAndUpdate({
+        promises.push(DoctorModel.findOne({
             available: true,
             assisting: false
-        }, {
-            assisting: true
-        },
-            {
-            "new": true
         }));
         return Promise.all(promises).spread(function(patient, doctor) {
-
             return model.create({
                 patient: patient._id,
                 doctors: [doctor._id],
                 primary: doctor._id
             });
-
         }).catch(function(error) {
-            console.log("Error", error);
+            console.log(error);
         });
     };
 

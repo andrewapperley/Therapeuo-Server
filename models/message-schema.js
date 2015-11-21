@@ -7,12 +7,10 @@ var _schema = {
         id: {type: String},
         _type: {type: String}
     },
-    receivers: [
-        {
-            id: {type: String},
-            _type: {type: String}
-        }
-    ],
+    receiver: {
+        id: {type: String},
+        _type: {type: String}
+    },
     timestamp: {type: Number},
     content: {type: String, required: true}
 };

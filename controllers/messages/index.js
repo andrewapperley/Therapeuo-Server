@@ -36,12 +36,12 @@ module.exports = function (router) {
 
         var patientId = req.body.From;
         var text = req.body.Body;
-
+        console.log(req.body);
         CaseModel.findOne({
             patient: patientId,
             open: true
-        }).populate("doctors")
-            .then(function(caseModel) {
+        }).then(function(caseModel) {
+            console.log(caseModel);
             if (caseModel) {
                 return caseModel;
             } else {
@@ -49,34 +49,11 @@ module.exports = function (router) {
             }
         }).then(function(caseModel) {
 
-            var receivers = [];
-            caseModel.doctors.map(function(doctor) {
-                receivers.push({
-                    id: doctor._id,
-                    _type: "Doctor"
-                });
-            });
-
-            return Promise.all([
-                MessageModel.create({
-                    "case": caseModel._id,
-                    sender: {
-                        id: caseModel.patient,
-                        _type: "Patient"
-                    },
-                    receivers: receivers,
-                    timestamp: moment(new Date()).utc().unix(),
-                    content: text
-                }),
-                caseModel
-            ]);
-
-        }).spread(function(message, caseModel) {
-            PushService.pushNotifications(message, caseModel);
-            res.send("Ok");
         }).catch(function(error) {
             console.log(error);
         });
+
+
 
     });
 
