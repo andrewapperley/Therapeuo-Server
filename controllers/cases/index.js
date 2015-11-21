@@ -51,10 +51,20 @@ module.exports = function (router) {
             })
     });
 
-    router.post('/modify', function (req, res) {
+    router.put('/:id/update', function (req, res) {
+        delete req.body._id;
+        delete req.body.__v;
+        delete req.body.patient;
+        delete req.body.primary;
+        delete req.body.doctors;
 
-        res.send("index");
-
+        Case.findByIdAndUpdate(req.params.id, req.body)
+            .then(function(result) {
+                res.status(204).end();
+            })
+            .catch(function(error) {
+                res.status(500).json({error: error});
+            });
     });
 
     router.post('/', function (req, res) {
