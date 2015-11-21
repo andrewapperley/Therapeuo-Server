@@ -70,6 +70,7 @@ module.exports = function (router) {
                 }),
                 caseModel
             ]);
+
         }).spread(function(message, caseModel) {
             PushService.pushNotifications(message, caseModel);
             res.send("Ok");
