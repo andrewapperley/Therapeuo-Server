@@ -35,6 +35,17 @@ module.exports = function (router) {
             })
             .catch(function(error) {
                 res.status(500).json({'error': error});
+            });
+    });
+
+    router.get('/:id/doctors', function(req, res) {
+        Case.findById(req.params.id)
+            .select("doctors")
+            .populate("doctors")
+            .then(function(caseModel) {
+                res.json(caseModel.doctors);
+            }).catch(function(error) {
+                res.status(500).json({'error': error});
             })
     });
 

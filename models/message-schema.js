@@ -4,11 +4,11 @@ var Schema = require('mongoose').Schema;
 var _schema = {
     case: {type: Schema.Types.ObjectId, ref: "Case"},
     sender: {
-        id: {type: String},
+        _id: {type: String},
         _type: {type: String}
     },
     receivers: [{
-        id: {type: String},
+        _id: {type: String},
         _type: {type: String}
     }],
     timestamp: {type: Number},

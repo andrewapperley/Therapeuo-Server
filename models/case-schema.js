@@ -16,7 +16,7 @@ module.exports = function() {
 
 	schema.method('messages', function() {
 		return Message.find({'case': {$in: [this._id]}});
-	})
+	});
 
     return schema;
 }();

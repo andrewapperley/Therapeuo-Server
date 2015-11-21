@@ -56,7 +56,7 @@ module.exports = function() {
 
             var notification = new apn.Notification();
             notification.badge = 1;
-            notification.alert = "You have a new message from Patient " + message.sender.id;
+            notification.alert = "You have a new message from Patient " + message.sender._id;
             notification.payload = {
                 "case": caseModel._id
             };
