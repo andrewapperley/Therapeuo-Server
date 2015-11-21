@@ -1,14 +1,10 @@
 
-var Schema = require('mongoose').Schema,
-    bcrypt = require('bcrypt');
+var Schema = require('mongoose').Schema;
 
 var _schema = {
-    logo: {type: Schema.Types.ObjectId, ref: "Media"},
-    name: {type: String, required: true, unique: true},
-    email: {type: String, required: true},
-    password: {type: String, required: true},
-    suspended: {type: Boolean, default: false},
-    activated: {type: Boolean, default: true}
+    _id: {type: String, required: true, unique: true},
+    name: {type: String},
+    location: { type: [Number], index: { type: '2dsphere', sparse: true}}
 };
 
 module.exports = function() {

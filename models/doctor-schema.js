@@ -2,7 +2,11 @@
 var Schema = require('mongoose').Schema;
 
 var _schema = {
-    name: {type: String, required: true}
+    name: {type: String, required: true},
+    location: { type: [Number], index: { type: '2dsphere', sparse: true}},
+    available: {type: Boolean, default: true},
+    assisting: {type: Boolean, default: false},
+    device: {type: String}
 };
 
 module.exports = function() {
