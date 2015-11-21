@@ -2,9 +2,11 @@
 var Schema = require('mongoose').Schema;
 
 var _schema = {
-    patient: {type: Schema.Types.ObjectId, ref: "Patient", required: true},
+    patient: {type: Schema.Types.ObjectId, ref: "Patient"},
     doctors: {type: [{type: Schema.Types.ObjectId, ref: "Doctor"}]},
-    primary: {type: Schema.Types.ObjectId, ref: "Doctor", required: true}
+    primary: {type: Schema.Types.ObjectId, ref: "Doctor", required: true},
+    open: {type: Boolean, default: true},
+    notes: {type: String}
 };
 
 module.exports = function() {

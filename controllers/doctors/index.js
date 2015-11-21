@@ -1,5 +1,6 @@
 'use strict';
 var Doctor = require('../../models/doctor');
+var Case = require('../../models/case');
 
 module.exports = function (router) {
 
@@ -51,6 +52,17 @@ module.exports = function (router) {
                 res.status(201).json(newDoctor);
             }
         });
+    });
+
+    router.get('/:id/cases', function (req, res) {
+        Case.find({'doctors': { $in: [req.params.id]}})
+            .then(function (results) {
+                if (results) {
+                    res.status(200).json(results);
+                } else {
+                    res.status(404);
+                }
+            });
     });
 
     router.post('/:id/message', function (req, res) {

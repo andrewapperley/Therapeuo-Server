@@ -19,7 +19,7 @@
     "kraken-js": "^1.0.3",
     "localizr": "^0.1.6",
     "lodash": "^3.10.1",
-    "mongoose": "^4.1.12",
+    "mongoose": "4.1.12",
     "superagent": "^1.4.0",
     "twilio": "^2.5.2",
     "walk": "^2.3.9"
