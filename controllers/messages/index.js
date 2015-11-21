@@ -20,7 +20,7 @@ module.exports = function (router) {
 
     });
 
-    router.post('/newMessage', function(req, res) {
+    router.post('/receive', function(req, res) {
         console.log(req);
     });
 
