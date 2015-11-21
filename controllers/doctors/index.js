@@ -1,23 +1,35 @@
 'use strict';
+var Doctor = require('../../models/doctor');
 
 module.exports = function (router) {
 
-    router.get('/:id', function (req, res) {
+    router.get('/:email', function (req, res) {
+        
+    });
 
-        res.send("index");
-
+    router.put('/:id/update', function(req, res) {
+        res.send("update");
     });
 
     router.get('/list', function (req, res) {
-
         res.send("index");
-
     });
 
-    router.post('/', function (req, res) {
+    router.post('/register', function (req, res) {
 
-        res.send("index");
+        var newDoctor = new Doctor({
+          name: req.body.name,
+          password: req.body.password,
+          email: req.body.email
+        });
 
+        newDoctor.save(function(error) {
+            if (error) {
+                res.status(400).json({'error': error});
+            } else {
+                res.status(201).json(newDoctor);
+            }
+        });
     });
 
     router.post('/:id/message', function (req, res) {
