@@ -2,9 +2,17 @@
 
 var CaseModel = require('../../models/case'),
     MessageModel = require('../../models/message'),
-    moment = require('moment');
+    moment = require('moment'),
+    PushService = require('../../services/apn-service'),
+    Promise = require('bluebird');
 
 module.exports = function (router) {
+
+    function createPromise(object) {
+        return new Promise(function(resolve, reject) {
+            resolve(object);
+        });
+    }
 
     router.get('/:id', function (req, res) {
 
@@ -32,7 +40,8 @@ module.exports = function (router) {
         CaseModel.findOne({
             patient: patientId,
             open: true
-        }).then(function(caseModel) {
+        }).populate("doctors")
+            .then(function(caseModel) {
             if (caseModel) {
                 return caseModel;
             } else {
@@ -48,26 +57,25 @@ module.exports = function (router) {
                 });
             });
 
-            return MessageModel.create({
-                "case": caseModel._id,
-                sender: {
-                    id: caseModel.patient,
-                    _type: "Patient"
-                },
-                receivers: receivers,
-                timestamp: moment(new Date()).utc().unix(),
-                content: text
-            });
-        }).then(function(message) {
-            /**
-             * Send Push Notifications
-             */
-            res.send(message);
+            return Promise.all([
+                MessageModel.create({
+                    "case": caseModel._id,
+                    sender: {
+                        id: caseModel.patient,
+                        _type: "Patient"
+                    },
+                    receivers: receivers,
+                    timestamp: moment(new Date()).utc().unix(),
+                    content: text
+                }),
+                caseModel
+            ]);
+        }).spread(function(message, caseModel) {
+            PushService.pushNotifications(message, caseModel);
+            res.send("Ok");
         }).catch(function(error) {
             console.log(error);
         });
-
-
 
     });
 

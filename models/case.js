@@ -23,13 +23,15 @@ module.exports = function() {
             assisting: false
         }));
         return Promise.all(promises).spread(function(patient, doctor) {
+
             return model.create({
                 patient: patient._id,
                 doctors: [doctor._id],
                 primary: doctor._id
-            });
+            }).populate("doctors");
+
         }).catch(function(error) {
-            console.log(error);
+            console.log("Error", error);
         });
     };
 

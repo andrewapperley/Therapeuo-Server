@@ -1,4 +1,5 @@
 var apn = require('apn'),
+    _ = require('lodash'),
     ApplePushService,
     expired = false;
 
@@ -17,24 +18,25 @@ module.exports = function() {
     function init() {
         if (!ApplePushService || expired) {
             ApplePushService = new apn.Connection({
-                cert: "",
-                key: ""
+                passphrase: "therapeuo",
+                cert: __dirname+"/cert.pem",
+                key: __dirname+"/key.pem"
             });
 
             ApplePushService.on("transmitted", function (notification, device) {
-
+                console.log("transmitted", notification, device);
             });
 
             ApplePushService.on("completed", function () {
-
+                console.log("completed");
             });
 
             ApplePushService.on("error", function (error) {
-
+                console.log("error", error);
             });
 
             ApplePushService.on("transmissionError", function (error, notification, device) {
-
+                console.log("transmissionError", error, notification, device);
             });
 
             ApplePushService.on("timeout", function () {
@@ -49,17 +51,23 @@ module.exports = function() {
 
 
     return {
-        pushNotification: function(deviceToken, message, caseId) {
+        pushNotifications: function(message, caseModel) {
             init();
-            var device = new apn.Device(deviceToken);
+
             var notification = new apn.Notification();
             notification.badge = 1;
-            notification.alert = "";
+            notification.alert = "You have a new message from Patient " + message.sender.id;
             notification.payload = {
-                "case": caseId,
+                "case": caseModel._id,
                 "message": message._id
             };
-            ApplePushService.pushNotification(notification, device);
+
+            _.forEach(caseModel.doctors, function(doctor) {
+                if (doctor.device) {
+                    var device = new apn.Device(doctor.device);
+                    ApplePushService.pushNotification(notification, device);
+                }
+            });
         }
     }
 
