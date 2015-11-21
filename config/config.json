@@ -1,0 +1,34 @@
+{
+
+    "twillio" : {
+        "access": "SK02dbef0a9a16d8aef739762182706ff7",
+        "secret": "b5viPJBfnZZhO1qXGmPoz1yDkhUbGNEA"
+    },
+
+    "apn" : {
+        "apn-certificate-file-path":  "etc/apn-certificate-dev.pem",
+        "apn-key-file-path": "etc/apn-key-dev.pem"
+    },
+
+    "mongo" : {
+        "host" : "localhost",
+        "port" : "27017",
+        "database" : "therapeuo"
+    },
+
+
+    "bcrypt": {
+        "difficulty": 8
+    },
+
+
+    "middleware": {
+
+        "router": {
+            "module": {
+                "arguments": [{ "directory": "path:./controllers" }]
+            }
+        }
+
+    }
+}

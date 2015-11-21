@@ -1,0 +1,13 @@
+{
+  "generator-kraken": {
+    "taskModule": "grunt",
+    "description": "Devs Without Borders Hackathon Server",
+    "author": "Team Therapeuo",
+    "templateModule": false,
+    "i18n": false,
+    "componentPackager": false,
+    "cssModule": false,
+    "jsModule": "browserify",
+    "useJson": null
+  }
+}
