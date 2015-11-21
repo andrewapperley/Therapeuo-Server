@@ -1,5 +1,6 @@
 
 var Schema = require('mongoose').Schema;
+var Message = require('./message');
 
 var _schema = {
 	patient: {type: String, ref: "Patient", required: true},
@@ -13,9 +14,9 @@ module.exports = function() {
 
     var schema = new Schema(_schema);
 
-    /**
-     * Attach any static functions here
-     */
+	schema.method('messages', function() {
+		return Message.find({'case': {$in: [this._id]}});
+	})
 
     return schema;
 }();
