@@ -11,9 +11,12 @@
     },
 
     "mongo" : {
-        "host" : "localhost",
-        "port" : "27017",
-        "database" : "therapeuo"
+        "host" : "ds057244.mongolab.com",
+        "port" : "57244",
+        "username": "admin",
+        "password": "admin",
+        "database" : "heroku_4rxc2xrn",
+        "url": "mongodb://admin:admin@ds057244.mongolab.com:57244/heroku_4rxc2xrn"
     },
 
 
