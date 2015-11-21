@@ -58,8 +58,7 @@ module.exports = function() {
             notification.badge = 1;
             notification.alert = "You have a new message from Patient " + message.sender.id;
             notification.payload = {
-                "case": caseModel._id,
-                "message": message._id
+                "case": caseModel._id
             };
 
             _.forEach(caseModel.doctors, function(doctor) {

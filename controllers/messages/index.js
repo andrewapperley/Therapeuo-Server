@@ -48,7 +48,6 @@ module.exports = function (router) {
                 return CaseModel.createCase(patientId);
             }
         }).then(function(caseModel) {
-            console.log(caseModel);
             var receivers = [];
             caseModel.doctors.map(function(doctor) {
                 receivers.push({

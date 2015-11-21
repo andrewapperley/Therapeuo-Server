@@ -29,8 +29,6 @@ module.exports = function() {
         }));
         return Promise.all(promises).spread(function(patient, doctor) {
 
-            console.log(patient, doctor);
-
             return model.create({
                 patient: patient._id,
                 doctors: [doctor._id],
