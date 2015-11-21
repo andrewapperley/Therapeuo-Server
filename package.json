@@ -14,6 +14,7 @@
     "apn": "^1.7.5",
     "bcrypt": "^0.8.1",
     "bluebird": "^3.0.5",
+    "construx": "^1.0.0",
     "express": "^4.12.2",
     "kraken-js": "^1.0.3",
     "localizr": "^0.1.6",

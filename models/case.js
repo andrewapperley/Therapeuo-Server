@@ -1,9 +1,9 @@
 
 var mongoose = require('mongoose');
-var categorySchema = require('./category-schema');
+var caseSchema = require('./case-schema');
 
 module.exports = function() {
 
-    return mongoose.model('Category', categorySchema);
+    return mongoose.model('Case', caseSchema);
 
 }();

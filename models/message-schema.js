@@ -2,12 +2,19 @@
 var Schema = require('mongoose').Schema;
 
 var _schema = {
-    logo: {type: Schema.Types.ObjectId, ref: "Media"},
-    name: {type: String, required: true, unique: true},
-    email: {type: String, required: true},
-    password: {type: String, required: true},
-    suspended: {type: Boolean, default: false},
-    activated: {type: Boolean, default: true}
+    case: {type: Schema.Types.ObjectId, ref: "Case"},
+    sender: {
+        id: {type: Schema.Types.ObjectId},
+        _type: {type: String}
+    },
+    receiver: {
+        id: {type: Schema.Types.ObjectId},
+        _type: {type: String}
+    },
+    timestamp: {type: Number},
+    sent: {type: Boolean, required: true},
+    delivered: {type: Boolean, required: true},
+    content: {type: String, required: true}
 };
 
 module.exports = function() {
