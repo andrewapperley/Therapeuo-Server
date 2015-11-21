@@ -38,6 +38,16 @@ module.exports = function (router) {
         });
     });
 
+    router.delete('/:id/logout', function (req, res) {
+        Doctor.findByIdAndUpdate(req.params.id, {device: ""})
+            .then(function(result) {
+                res.status(204).end();
+            })
+            .catch(function(error) {
+                res.status(500).json(error);
+            });
+    });
+
     router.post('/register', function (req, res) {
         var newDoctor = new Doctor({
           name: req.body.name,
