@@ -12,6 +12,7 @@ module.exports = function() {
         ApplePushService.removeAllListeners("error");
         ApplePushService.removeAllListeners("transmissionError");
         ApplePushService.removeAllListeners("timeout");
+        ApplePushService.removeAllListeners("socketError");
         init();
     }
 
@@ -29,6 +30,10 @@ module.exports = function() {
 
             ApplePushService.on("transmitted", function (notification, device) {
                 console.log("transmitted", notification, device);
+            });
+
+            ApplePushService.on("socketError", function(error) {
+                console.log("Socket error:", error);
             });
 
             ApplePushService.on("completed", function () {
