@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0b1204fd-9a42-4084-81e2-8dfe0f70b3bf" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/messages/index.js" afterPath="$PROJECT_DIR$/controllers/messages/index.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Therapeuo.iws" />
@@ -401,9 +400,7 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/controllers/cases/index.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/models/case-schema.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/services/apn-service.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/controllers/doctors/index.js</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Created" />
@@ -646,7 +643,13 @@
       <option name="project" value="LOCAL" />
       <updated>1448164236227</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="ALmost there">
+      <created>1448164534509</created>
+      <option name="number" value="00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1448164534509</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TodoView">
@@ -712,7 +715,8 @@
     <MESSAGE value="Updating a case works and updates Doctors" />
     <MESSAGE value="Attempt to fix the XML errors with SMS -&gt; Server" />
     <MESSAGE value="More attempts to get push from SMS" />
-    <option name="LAST_COMMIT_MESSAGE" value="More attempts to get push from SMS" />
+    <MESSAGE value="ALmost there" />
+    <option name="LAST_COMMIT_MESSAGE" value="ALmost there" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.08527132" />
   </component>
   <component name="XDebuggerManager">
