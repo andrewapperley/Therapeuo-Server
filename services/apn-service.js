@@ -66,9 +66,10 @@ module.exports = function() {
                     notification.payload = {
                         "case": caseModel._id
                     };
-                    notification.retryLimit = 2;
+                    notification.retryLimit = 5;
 
                     var device = new apn.Device(doctor.device);
+
                     ApplePushService.pushNotification(notification, device);
                 }
             });
