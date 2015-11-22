@@ -17,12 +17,6 @@ module.exports = function() {
                     to = r;
                 }
             });
-            console.log({
-                to: to._id,
-                from: number,
-                body: message.content
-
-            });
             return client.sendMessage({
                 to: to._id,
                 from: number,

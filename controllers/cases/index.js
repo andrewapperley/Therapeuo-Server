@@ -1,9 +1,11 @@
 'use strict';
 var Case = require('../../models/case');
 var Message = require('../../models/message');
+var Doctor = require('../../models/doctor');
 var ApnService = require('../../services/apn-service');
 var MessageService = require('../../services/message-service');
 var Promise = require('bluebird');
+var _ = require('lodash');
 
 module.exports = function (router) {
 
@@ -61,9 +63,29 @@ module.exports = function (router) {
         delete req.body.primary;
         delete req.body.doctors;
 
-        Case.findByIdAndUpdate(req.params.id, req.body)
+        Case.findByIdAndUpdate({_id: req.params.id}, req.body)
             .then(function(result) {
-                res.status(204).end();
+                if (result) {
+                    if (_.has(req.body, "open")) {
+                        if (req.body.open === false) {
+                            Doctor.find({_id: {$in: result.doctors}})
+                                .then(function(doctors) {
+                                    var promises = [];
+                                    _.forEach(doctors, function(d) {
+                                        d.assisting = false;
+                                        promises.push(d.save());
+                                    });
+                                    return Promise.all(promises)
+                                }).then(function() {
+                                    res.status(204).end();
+                                });
+                        } else {
+                            res.status(204).end();
+                        }
+                    }
+                } else {
+                    res.status(200).end();
+                }
             })
             .catch(function(error) {
                 res.status(500).json({error: error});
