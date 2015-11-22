@@ -4,7 +4,8 @@ var Schema = require('mongoose').Schema;
 var _schema = {
     _id: {type: String, required: true, unique: true},
     name: {type: String},
-    location: { type: [Number], index: { type: '2dsphere', sparse: true}}
+    location: { type: [Number], index: { type: '2dsphere', sparse: true}},
+    locationDescription: {type: String}
 };
 
 module.exports = function() {

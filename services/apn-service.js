@@ -20,6 +20,7 @@ module.exports = function() {
             var env = process.env.NODE_ENV || "development";
             console.log("Using "+env+" for push");
             ApplePushService = new apn.Connection({
+                production: true,
                 passphrase: "therapeuo",
                 cert: __dirname+"/cert_"+env+".pem",
                 key: __dirname+"/key_"+env+".pem",
@@ -65,7 +66,7 @@ module.exports = function() {
             };
 
             _.forEach(caseModel.doctors, function(doctor) {
-                if (doctor.device) {
+                if (doctor.device) { //&& _.includes(message.receivers, {'_id': doctor._id, '_type':'Doctor'})) {
                     var device = new apn.Device(doctor.device);
                     ApplePushService.pushNotification(notification, device);
                 }

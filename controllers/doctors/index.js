@@ -27,6 +27,7 @@ module.exports = function (router) {
     router.put('/:id', function(req, res) {
         delete req.body._id;
         delete req.body.__v;
+        console.log(req.body);
         Doctor.findByIdAndUpdate(req.params.id, req.body, function(err, result) {
             if (err || !result) {
                 res.status(400).json({'error': 'Update failed.'});

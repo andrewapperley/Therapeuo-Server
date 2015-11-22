@@ -5,7 +5,10 @@ var CaseModel = require('../../models/case'),
     moment = require('moment'),
     PushService = require('../../services/apn-service'),
     Promise = require('bluebird'),
-    twilio = require('twilio');
+    twilio = require('twilio'),
+    _ = require('lodash'),
+    messageParser = require('../../lib/message-parser'),
+    MessageService = require('../../services/message-service');
 
 module.exports = function (router) {
 
@@ -67,9 +70,22 @@ module.exports = function (router) {
 
         }).spread(function(message, caseModel) {
 
+                return Promise.all([
+                    message,
+                    caseModel,
+                    messageParser.parseMessage(message, caseModel)
+                ]);
+
+        }).spread(function(message, caseModel, results) {
                 PushService.pushNotifications(message, caseModel);
-                res.status(200).json("Message received");
-            }).catch(function(error) {
+                var messages = results[1];
+                _.forEach(messages, function(m) {
+                    PushService.pushNotifications(m, caseModel);
+                    MessageService.sendMessage(m);
+                });
+                res.writeHead(200, {'Content-Type': 'text/xml'});
+                res.end("");
+        }).catch(function(error) {
             console.log("error", error);
         });
 
