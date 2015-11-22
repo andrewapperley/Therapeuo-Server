@@ -17,11 +17,13 @@ module.exports = function() {
 
     function init() {
         if (!ApplePushService || expired) {
+            var env = process.env.NODE_ENV || "development";
+            console.log("Using "+env+" for push");
             ApplePushService = new apn.Connection({
                 passphrase: "therapeuo",
-                cert: __dirname+"/cert.pem",
-                key: __dirname+"/key.pem",
-                production: false
+                cert: __dirname+"/cert_"+env+".pem",
+                key: __dirname+"/key_"+env+".pem",
+                production: env !== "development"
             });
 
             ApplePushService.on("transmitted", function (notification, device) {
