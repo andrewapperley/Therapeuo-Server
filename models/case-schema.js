@@ -49,5 +49,16 @@ module.exports = function() {
 		});
 	});
 
+	schema.method('addDoctor', function(doctorId) {
+		_.each(this.doctors, function(doc) {
+			// == since doc is typeof object for whatever reason
+			if (doc == doctorId) {
+				throw "Doctor already on the case";
+			}
+		});
+		this.doctors.push(doctorId);
+		return this.save();
+	});
+
     return schema;
 }();
