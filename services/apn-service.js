@@ -20,7 +20,6 @@ module.exports = function() {
             var env = process.env.NODE_ENV || "development";
             console.log("Using "+env+" for push");
             ApplePushService = new apn.Connection({
-                production: true,
                 passphrase: "therapeuo",
                 cert: __dirname+"/cert_"+env+".pem",
                 key: __dirname+"/key_"+env+".pem",
