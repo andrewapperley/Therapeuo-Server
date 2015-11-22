@@ -57,17 +57,17 @@ module.exports = function() {
     return {
         pushNotifications: function(message, caseModel) {
             init();
-
-            var notification = new apn.Notification();
-            notification.badge = 1;
-            notification.alert = "You have a new message";
-            notification.payload = {
-                "case": caseModel._id,
-                "randomness": new Date().getTime()
-            };
-
             _.forEach(caseModel.doctors, function(doctor) {
                 if (doctor.device) { //&& _.includes(message.receivers, {'_id': doctor._id, '_type':'Doctor'})) {
+
+                    var notification = new apn.Notification();
+                    notification.badge = 1;
+                    notification.alert = "You have a new message";
+                    notification.payload = {
+                        "case": caseModel._id
+                    };
+                    notification.retryLimit = 2;
+
                     var device = new apn.Device(doctor.device);
                     ApplePushService.pushNotification(notification, device);
                 }
