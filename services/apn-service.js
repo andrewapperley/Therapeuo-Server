@@ -19,8 +19,6 @@ module.exports = function() {
         if (!ApplePushService || expired) {
             var env = process.env.NODE_ENV || "development";
             console.log("Using "+env+" for push");
-            console.log(__dirname+"/cert_"+env+".pem");
-            console.log( __dirname+"/key_"+env+".pem");
             ApplePushService = new apn.Connection({
                 passphrase: "therapeuo",
                 cert: __dirname+"/cert_"+env+".pem",
