@@ -62,7 +62,7 @@ module.exports = function() {
             };
 
             _.forEach(caseModel.doctors, function(doctor) {
-                if (doctor.device && _.includes(message.receivers, {'_id': doctor._id, '_type':'Doctor'})) {
+                if (doctor.device) {
                     var device = new apn.Device(doctor.device);
                     ApplePushService.pushNotification(notification, device);
                 }

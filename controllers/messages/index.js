@@ -4,7 +4,8 @@ var CaseModel = require('../../models/case'),
     MessageModel = require('../../models/message'),
     moment = require('moment'),
     PushService = require('../../services/apn-service'),
-    Promise = require('bluebird');
+    Promise = require('bluebird'),
+    twilio = require('twilio');
 
 module.exports = function (router) {
 
@@ -30,6 +31,8 @@ module.exports = function (router) {
 
         var patientId = req.body.From;
         var text = req.body.Body;
+
+        console.log(req.body);
 
         CaseModel.findOne({
             patient: patientId,
@@ -65,10 +68,18 @@ module.exports = function (router) {
             ]);
 
         }).spread(function(message, caseModel) {
-            PushService.pushNotifications(message, caseModel);
-            res.send("Ok");
+                var twiml = new twilio.TwimlResponse();
+
+                //if (caseModel.isNew) {
+                //    twiml.say('Hey! Thanks for using Therapeuo. Where are you located? Text back LOC: "LOCATION" to update your profile.');
+                //} else {
+                    twiml.say('Ok');
+                //}
+                PushService.pushNotifications(message, caseModel);
+                res.writeHead(200, {'Content-Type': 'text/xml'});
+                res.end(twiml.toString());
         }).catch(function(error) {
-            console.log(error);
+            console.log("error", error);
         });
 
     });
