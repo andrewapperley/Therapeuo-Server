@@ -1,6 +1,8 @@
 
 var Schema = require('mongoose').Schema;
 var Message = require('./message');
+var _ = require('lodash');
+var moment = require('moment');
 
 var _schema = {
 	patient: {type: String, ref: "Patient", required: true},
@@ -16,6 +18,36 @@ module.exports = function() {
 
 	schema.method('messages', function() {
 		return Message.find({'case': {$in: [this._id]}});
+	});
+
+	schema.method('receiversExcluding', function(id) {
+		var allReceivers = [];
+		_.each(this.doctors, function(doctor) {
+			if (doctor !== id) {
+				allReceivers.push({
+					'_id': doctor,
+					'_type':'Doctor'
+				});
+			}
+		});
+		if (this.patient !== id) {
+			allReceivers.push({
+				'_id': this.patient,
+				'_type': 'Patient'
+			});
+		}
+		console.log(allReceivers);
+		return allReceivers;
+	});
+
+	schema.method('addMessage', function(stuff) {
+		return Message.create({
+			content: stuff.content,
+			case: this._id,
+			sender: stuff.doctor.toString(),
+			receivers: this.receiversExcluding(stuff.doctor),
+			timestamp: moment(new Date()).utc().unix()
+		});
 	});
 
     return schema;

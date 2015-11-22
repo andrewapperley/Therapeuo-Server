@@ -1,6 +1,8 @@
 'use strict';
 var Case = require('../../models/case');
 var Message = require('../../models/message');
+var ApnService = require('../../services/apn-service');
+var Promise = require('bluebird');
 
 module.exports = function (router) {
 
@@ -67,10 +69,34 @@ module.exports = function (router) {
             });
     });
 
-    router.post('/', function (req, res) {
-
-        res.send("index");
-
+    router.post('/:id/message', function(req, res) {
+        Case.findById(req.params.id)
+            .then(function(result) {
+                if (result) {
+                    return result;
+                } else {
+                    throw "No case by that id";
+                }
+            })
+            .then(function(theCase) {
+                return Promise.all([
+                    theCase.addMessage({
+                        content: req.body.content,
+                        doctor: req.body.doctor
+                    }),
+                    theCase
+                ]);
+            })
+            .spread(function(message, theCase) {
+                ApnService.pushNotifications(message, theCase);
+                return message;
+            })
+            .then(function(result) {
+                res.status(201).json(result);
+            })
+            .catch(function(error) {
+                res.status(404).json({'error': error});
+            });
     });
 
     router.post('/decline', function (req, res) {

@@ -56,13 +56,13 @@ module.exports = function() {
 
             var notification = new apn.Notification();
             notification.badge = 1;
-            notification.alert = "You have a new message from Patient " + message.sender._id;
+            notification.alert = "You have a new message";
             notification.payload = {
                 "case": caseModel._id
             };
 
             _.forEach(caseModel.doctors, function(doctor) {
-                if (doctor.device) {
+                if (doctor.device && _.includes(message.receivers, {'_id': doctor._id, '_type':'Doctor'})) {
                     var device = new apn.Device(doctor.device);
                     ApplePushService.pushNotification(notification, device);
                 }
