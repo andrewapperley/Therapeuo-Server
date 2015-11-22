@@ -20,7 +20,8 @@ module.exports = function() {
             ApplePushService = new apn.Connection({
                 passphrase: "therapeuo",
                 cert: __dirname+"/cert.pem",
-                key: __dirname+"/key.pem"
+                key: __dirname+"/key.pem",
+                production: false
             });
 
             ApplePushService.on("transmitted", function (notification, device) {
