@@ -48,7 +48,7 @@ module.exports = function (router) {
             var receivers = [];
             caseModel.doctors.map(function(doctor) {
                 receivers.push({
-                    id: doctor._id,
+                    _id: doctor._id,
                     _type: "Doctor"
                 });
             });
@@ -57,7 +57,7 @@ module.exports = function (router) {
                 MessageModel.create({
                     "case": caseModel._id,
                     sender: {
-                        id: caseModel.patient,
+                        _id: caseModel.patient,
                         _type: "Patient"
                     },
                     receivers: receivers,
