@@ -40,10 +40,14 @@ module.exports = function() {
 	});
 
 	schema.method('addMessage', function(stuff) {
+        console.log(stuff);
 		return Message.create({
 			content: stuff.content,
 			case: this._id,
-			sender: stuff.doctor.toString(),
+			sender: {
+                '_id': stuff.doctor,
+                '_type':'Doctor'
+            },
 			receivers: this.receiversExcluding(stuff.doctor),
 			timestamp: moment(new Date()).utc().unix()
 		});
