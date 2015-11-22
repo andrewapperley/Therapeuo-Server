@@ -13,8 +13,6 @@ var options, app;
 options = {
     onconfig: function (config, next) {
 
-        global.config = config;
-
         bootstrap(config)
             .then(function() {
                 next(null, config);

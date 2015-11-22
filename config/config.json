@@ -2,8 +2,8 @@
 
     "twilio" : {
         "number": "+16046703383",
-        "access": "SK02dbef0a9a16d8aef739762182706ff7",
-        "secret": "b5viPJBfnZZhO1qXGmPoz1yDkhUbGNEA"
+        "access": "AC152cd8a5a8cb03c997c05f7ed7ae8afe",
+        "secret": "aa9288a1d54840f42cc873bbdff9722f"
     },
 
     "apn" : {

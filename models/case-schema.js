@@ -36,7 +36,6 @@ module.exports = function() {
 				'_type': 'Patient'
 			});
 		}
-		console.log(allReceivers);
 		return allReceivers;
 	});
 

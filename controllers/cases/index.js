@@ -2,6 +2,7 @@
 var Case = require('../../models/case');
 var Message = require('../../models/message');
 var ApnService = require('../../services/apn-service');
+var MessageService = require('../../services/message-service');
 var Promise = require('bluebird');
 
 module.exports = function (router) {
@@ -89,10 +90,13 @@ module.exports = function (router) {
             })
             .spread(function(message, theCase) {
                 ApnService.pushNotifications(message, theCase);
-                return message;
+                return Promise.all([
+                    message,
+                    MessageService.sendMessage(message)
+                ]);
             })
-            .then(function(result) {
-                res.status(201).json(result);
+            .spread(function(message, result) {
+                res.status(201).json(message);
             })
             .catch(function(error) {
                 res.status(404).json({'error': error});

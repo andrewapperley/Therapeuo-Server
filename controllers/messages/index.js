@@ -8,12 +8,6 @@ var CaseModel = require('../../models/case'),
 
 module.exports = function (router) {
 
-    function createPromise(object) {
-        return new Promise(function(resolve, reject) {
-            resolve(object);
-        });
-    }
-
     router.get('/:id', function (req, res) {
 
         res.send("index");
