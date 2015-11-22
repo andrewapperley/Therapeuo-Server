@@ -23,7 +23,8 @@ module.exports = function() {
                 passphrase: "therapeuo",
                 cert: __dirname+"/cert_"+env+".pem",
                 key: __dirname+"/key_"+env+".pem",
-                production: env !== "development"
+                production: env !== "development",
+                maxConnections: 10
             });
 
             ApplePushService.on("transmitted", function (notification, device) {
@@ -61,7 +62,8 @@ module.exports = function() {
             notification.badge = 1;
             notification.alert = "You have a new message";
             notification.payload = {
-                "case": caseModel._id
+                "case": caseModel._id,
+                "randomness": new Date().getTime()
             };
 
             _.forEach(caseModel.doctors, function(doctor) {
