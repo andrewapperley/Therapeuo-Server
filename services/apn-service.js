@@ -23,7 +23,7 @@ module.exports = function() {
                 passphrase: "therapeuo",
                 cert: __dirname+"/cert_"+env+".pem",
                 key: __dirname+"/key_"+env+".pem",
-                production: env !== "development"
+                production: env
             });
 
             ApplePushService.on("transmitted", function (notification, device) {
