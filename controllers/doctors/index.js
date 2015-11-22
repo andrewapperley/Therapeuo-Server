@@ -4,6 +4,16 @@ var Case = require('../../models/case');
 
 module.exports = function (router) {
 
+    router.get('/', function (req, res) {
+        Doctor.find()
+            .then(function(doctors) {
+                res.json(doctors);
+            })
+            .catch(function(error) {
+                res.status(500).json({'error': error});
+            });
+    });
+
     router.get('/:id', function (req, res) {
         Doctor.findById(req.params.id, function (err, result) {
             if (err || !result) {
