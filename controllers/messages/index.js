@@ -32,7 +32,7 @@ module.exports = function (router) {
         var patientId = req.body.From;
         var text = req.body.Body;
 
-        console.log(req.body);
+        console.log("BODY", req.body);
 
         CaseModel.findOne({
             patient: patientId,
@@ -73,8 +73,9 @@ module.exports = function (router) {
                 //if (caseModel.isNew) {
                 //    twiml.say('Hey! Thanks for using Therapeuo. Where are you located? Text back LOC: "LOCATION" to update your profile.');
                 //} else {
-                    twiml.say('Ok');
+                    twiml.say({sms: "Hello back"});
                 //}
+                console.log(message, caseModel);
                 PushService.pushNotifications(message, caseModel);
                 res.writeHead(200, {'Content-Type': 'text/xml'});
                 res.end(twiml.toString());
