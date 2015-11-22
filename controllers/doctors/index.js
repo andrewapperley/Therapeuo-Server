@@ -66,6 +66,7 @@ module.exports = function (router) {
 
     router.get('/:id/cases', function (req, res) {
         Case.find({'doctors': { $in: [req.params.id]}})
+            .populate("patient doctors")
             .then(function (results) {
                 if (results) {
                     res.status(200).json(results);

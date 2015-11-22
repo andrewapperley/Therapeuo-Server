@@ -6,6 +6,7 @@ module.exports = function (router) {
 
     router.get('/:id', function (req, res) {
         Case.findById(req.params.id)
+            .populate("patient doctors")
             .then(function(result) {
                 if (result) {
                     res.status(200).json(result);
@@ -20,6 +21,7 @@ module.exports = function (router) {
 
     router.get('/:id/messages', function(req, res) {
         Case.findById(req.params.id)
+            .populate("patient doctors")
             .then(function(result) {
                 if (result) {
                     result.messages()

@@ -40,7 +40,7 @@ module.exports = function (router) {
         CaseModel.findOne({
             patient: patientId,
             open: true
-        }).populate("doctors")
+        }).populate("patient doctors")
             .then(function(caseModel) {
             if (caseModel) {
                 return caseModel;
