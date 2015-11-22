@@ -138,6 +138,19 @@ module.exports = function (router) {
             });
     });
 
+    router.put('/:id/set_primary_doctor', function(req, res) {
+        Case.findById(req.params.id)
+            .then(function(result) {
+                return result.setPrimaryDoctor(req.body.doctor_id);
+            })
+            .then(function(result) {
+                res.json(result);
+            })
+            .catch(function(error) {
+                res.status(400).json({'error': error});
+            });
+    });
+
     router.post('/decline', function (req, res) {
 
         res.send("index");
